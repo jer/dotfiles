@@ -131,7 +131,7 @@ _moreless() {
   fi
 }
 
-###### online check
+# Check if we're online
 connected() { 
   case "$OS" in
     darwin)
@@ -143,6 +143,7 @@ connected() {
     esac
 }
 
+# Fetch a little info about a domain name
 url-info()
 {
   doms=$@
