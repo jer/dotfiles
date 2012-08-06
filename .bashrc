@@ -173,7 +173,10 @@ map() {
   local IFS="$(printf '\n\t')"
   local i
   while read i; do
-    eval $@
+    case "$@" in
+      *\$i*) eval $@ ;;
+      *) eval $@ $i;;
+    esac
   done
 }
 filter() {
@@ -181,7 +184,10 @@ filter() {
   local IFS="$(printf '\n\t')"
   local i
   while read i; do
-    eval $@ >/dev/null && echo $i
+    case "$@" in
+      *\$i*) eval $@ >/dev/null && echo $i ;;
+      *) eval $@ $i >/dev/null && echo $i;;
+    esac
   done
 }
 # Show what is on a certain port
