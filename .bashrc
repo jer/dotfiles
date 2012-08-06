@@ -175,12 +175,13 @@ map-find() { find $1 -name $2 -exec ${@:3} {} \; ; }
 map() {
   [ -z $1 ] && exit 1
   local IFS="$(printf '\n\t')"
-  local i
+  local i cmd
+  case "$@" in
+    *\$i*) cmd="$@" ;;
+    *) cmd="$@ \$i" ;;
+  esac
   while read i; do
-    case "$@" in
-      *\$i*) eval $@ ;;
-      *) eval $@ $i;;
-    esac
+   eval $cmd
   done
 }
 
@@ -188,12 +189,13 @@ map() {
 filter() {
   [ -z $1 ] && exit 1
   local IFS="$(printf '\n\t')"
-  local i
+  local i cmd
+  case "$@" in
+    *\$i*) cmd="$@" ;;
+    *) cmd="$@ \$i" ;;
+  esac
   while read i; do
-    case "$@" in
-      *\$i*) eval $@ >/dev/null && echo $i ;;
-      *) eval $@ $i >/dev/null && echo $i;;
-    esac
+    eval $cmd >/dev/null && echo $i;
   done
 }
 
