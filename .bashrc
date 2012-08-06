@@ -12,6 +12,7 @@ _setpath() {
   paths="${HOME}/bin"
   paths="${paths} /usr/local/bin"
 
+  local i
   for i in $paths; do
     if `echo $PATH | egrep $i'(\:|$)' >/dev/null 2>&1`; then
       continue
@@ -98,6 +99,7 @@ _sources() {
   sources="${sources} ${HOME}/.sources/bashrc/${OS}.bashrc"
   sources="${sources} ${HOME}/.bash_completion.d"
 
+  local i
   for i in $sources; do
     # Source files
     if [ -f $i ]; then
@@ -150,6 +152,7 @@ url-info()
   if [ $# -eq 0 ]; then
     echo -e "No domain given\nTry $0 domain.com domain2.org anyotherdomain.net"
   fi
+  local i
   for i in $doms; do
     _ip=$(host $i|grep 'has address'|awk {'print $4'})
     if [ "$_ip" == "" ]; then
@@ -168,6 +171,8 @@ url-info()
 fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
 # Map over a list of files
 map-find() { find $1 -name $2 -exec ${@:3} {} \; ; }
+
+# Map over a bunch of lines piped in
 map() {
   [ -z $1 ] && exit 1
   local IFS="$(printf '\n\t')"
@@ -179,6 +184,8 @@ map() {
     esac
   done
 }
+
+# Filter on a predicate. Return all of the matches
 filter() {
   [ -z $1 ] && exit 1
   local IFS="$(printf '\n\t')"
