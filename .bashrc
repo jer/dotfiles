@@ -194,7 +194,5 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 #export TERM=ansi
 
-export CLOJURE_EXT=/Users/jer/dev/git/clojure/distrib/clojure
-
 _sources
 unset OS
