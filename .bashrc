@@ -196,6 +196,16 @@ filter() {
     esac
   done
 }
+
+# Execute command $i times, returning the time
+timerepeat() {
+  time (
+  local count=$1; shift;
+  for ((i=0; i< $count; i++)); do
+    eval $@
+  done )
+}
+
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
