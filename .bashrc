@@ -167,8 +167,23 @@ url-info()
 
 fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
 # Map over a list of files
-map-files() { find $1 -name $2 -exec ${@:3} {} \; ; }
-filter-files() { echo not implemented ; }
+map-find() { find $1 -name $2 -exec ${@:3} {} \; ; }
+map() {
+  [ -z $1 ] && exit 1
+  local IFS="$(printf '\n\t')"
+  local i
+  while read i; do
+    eval $@
+  done
+}
+filter() {
+  [ -z $1 ] && exit 1
+  local IFS="$(printf '\n\t')"
+  local i
+  while read i; do
+    eval $@ >/dev/null && echo $i
+  done
+}
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
