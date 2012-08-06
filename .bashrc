@@ -143,7 +143,7 @@ connected() {
     esac
 }
 
-function url-info()
+url-info()
 {
   doms=$@
   if [ $# -eq 0 ]; then
@@ -164,16 +164,16 @@ function url-info()
   done
 }
 
-function fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
+fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
 # Map over a list of files
-function map-files() { find $1 -name $2 -exec ${@:3} {} \; ; }
-function filter-files() { echo not implemented ; }
+map-files() { find $1 -name $2 -exec ${@:3} {} \; ; }
+filter-files() { echo not implemented ; }
 # Show what is on a certain port
-function port() { lsof -i :"$1" ; }
+port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
-function shebang() { if i=$(which $1); then printf '#!%s\n\n' $i >  $2 && $EDITOR + $2 && chmod 755 $2; else echo "'which' could not find $1, is it in your \$PATH?"; fi; }
+shebang() { if i=$(which $1); then printf '#!%s\n\n' $i >  $2 && $EDITOR + $2 && chmod 755 $2; else echo "'which' could not find $1, is it in your \$PATH?"; fi; }
 # Get stock quote
-function stock() { curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=$1&f=l1" ; }
+stock() { curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=$1&f=l1" ; }
 alias funfacts='wget http://www.randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;";'
 
 _setpath
