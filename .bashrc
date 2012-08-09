@@ -68,6 +68,8 @@ _setprompt() {
 
   export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY"
   export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
+  # Send tmux some path info
+  #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
   #export PS1="\[\e]2;\u@\H \w\a\e[32;1m\e[32;40m\]\h \w $\[\e[0m\] "
   #export PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\H> \[\e[0m\]"
 }
