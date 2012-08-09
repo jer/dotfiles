@@ -94,7 +94,6 @@ _sources() {
   local sources=""
   sources="${sources} ${HOME}/.nvm/nvm.sh"
   sources="${sources} /etc/bash_completion"
-  sources="${sources} /usr/local/etc/bash_completion"
   sources="${sources} ${HOME}/.sources"
   sources="${sources} ${HOME}/.sources/bashrc/${HOSTNAME}.bashrc"
   sources="${sources} ${HOME}/.sources/bashrc/${OS}.bashrc"
