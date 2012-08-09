@@ -9,16 +9,15 @@ fi
 OS=$(uname | awk '{print tolower($1)}')
 
 _setpath() {
-  paths="${HOME}/bin"
-  paths="${paths} /usr/local/bin"
+  paths="/usr/local/bin"
+  paths="${paths} ${HOME}/bin"
 
   local i
   for i in $paths; do
-    if `echo $PATH | egrep $i'(\:|$)' >/dev/null 2>&1`; then
-      continue
-    fi
+    # Move these paths to the front
+    PATH=$(echo $PATH | sed -e "s#$i##g")
     if [ -d $i ]; then
-      PATH=$PATH:$i 
+      PATH=$i:$PATH
     fi
   done
 
