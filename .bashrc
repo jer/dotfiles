@@ -233,7 +233,8 @@ shopt -s checkwinsize
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
-export TERM=ansi
+#export TERM=ansi
+export TERM=xterm-color
 
 _sources
 unset OS
