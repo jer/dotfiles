@@ -40,10 +40,19 @@ mem() {
 }
 
 _setaliases() {
+  case "$OS" in
+    darwin)
+        local FIND_EGREP="-E .";
+        ;;
+    linux)
+        local FIND_EGREP=". -regextype posix-egrep";
+        ;;
+  esac
+
   alias ls='ls -G'
   alias ll='ls -hl'
 
-  alias cruft="find . -regextype posix-egrep -regex '.*swo|.*swp|.*pyc|.*pyo|.*~' -exec rm {} \;"
+  alias cruft="find $FIND_EGREP -regex '.*swo|.*swp|.*pyc|.*pyo|.*~' -exec rm {} \;"
 
   alias p="ps aux |grep "
   alias grep="grep --color=auto"
