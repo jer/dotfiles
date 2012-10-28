@@ -62,13 +62,15 @@ _setaliases() {
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
   alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+  alias sourcebashrc='source ~/.bashrc'
 }
 
 _setprompt() {
-  local SAVEHISTORY="history -a;$PROMPT_COMMAND"
+  local SAVEHISTORY="history -a"
   local SETWINDOWTITLE='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+  local TMUXPATH='([ -n $TMUX ] && tmux set-environment -g CWD $PWD)'
 
-  export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY"
+  export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY;$TMUXPATH"
   export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
   # Send tmux some path info
   #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
