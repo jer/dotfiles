@@ -99,8 +99,8 @@ _sources() {
   sources="${sources} ${HOME}/.nvm/nvm.sh"
   sources="${sources} /etc/bash_completion"
   sources="${sources} ${HOME}/.sources"
-  sources="${sources} ${HOME}/.sources/bashrc/${HOSTNAME}.bashrc"
-  sources="${sources} ${HOME}/.sources/bashrc/${OS}.bashrc"
+  sources="${sources} ${HOME}/.sources/${HOSTNAME}"
+  sources="${sources} ${HOME}/.sources/${OS}"
   sources="${sources} ${HOME}/.bash_completion.d"
 
   local i
