@@ -48,6 +48,8 @@ _setaliases() {
   alias p="ps aux |grep "
   alias grep="grep --color=auto"
 
+  alias facts="echo -ne '\033[36m'; curl -s randomfunfacts.com | grep '<i>' | sed 's/.*<i>\(.*\)<\/i>.*/\1/'; echo -ne '\033[0m'; tput sgr0"
+
   # show numeric permissions
   local FORMATFLAG="-c"
   if ( uname -a | grep Darwin >/dev/null); then
