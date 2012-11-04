@@ -42,6 +42,8 @@ mem() {
 _setaliases() {
   case "$OS" in
     darwin)
+        # Use MacVim's terminal vim for awesomeness support
+        hash rvim 2>/dev/null  && alias vim=rvim
         local FIND_EGREP="-E .";
         ;;
     linux)
