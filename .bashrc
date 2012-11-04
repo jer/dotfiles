@@ -80,7 +80,9 @@ _setaliases() {
 _setprompt() {
   local SAVEHISTORY="history -a"
   local SETWINDOWTITLE='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-  local TMUXPATH='([ -n $TMUX ] && tmux set-environment -g CWD $PWD)'
+  local TMUXENV='tmux set-environment -g CWD "$PWD"'
+  local TMUXPATH="([ -n $TMUX ] && $TMUXENV 2>/dev/null &&
+                   tmux set-option default-path $PWD 2>/dev/null >&2)"
 
   export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY;$TMUXPATH"
   export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
