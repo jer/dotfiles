@@ -229,7 +229,7 @@ timerepeat() {
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
-shebang() { if i=$(which $1); then printf '#!%s\n\n' $i >  $2 && $EDITOR + $2 && chmod 755 $2; else echo "'which' could not find $1, is it in your \$PATH?"; fi; }
+shebang() { if i=$(which $1); then printf '#!%s\n\n' $i >  $2 && chmod +x $2 && $EDITOR + $2 ; else echo "'which' could not find $1, is it in your \$PATH?"; fi; }
 # Get stock quote
 stock() { curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=$1&f=l1" ; }
 fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
