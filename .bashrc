@@ -84,16 +84,16 @@ _setaliases() {
 _setprompt() {
   local SAVEHISTORY="history -a"
   local SETWINDOWTITLE='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-  local TMUXENV='tmux set-environment -g CWD "$PWD"'
-  local TMUXPATH="([ -n $TMUX ] && $TMUXENV 2>/dev/null &&
-                   tmux set-option default-path $PWD 2>/dev/null >&2)"
 
-  export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY;$TMUXPATH"
+  local TMUXCMD=''
+  if [ -n $TMUX ]; then
+    local TMUXENV='tmux set-environment -g CWD "$PWD"'
+    local TMUXPATH='tmux set-option default-path $PWD'
+    local TMUXCMD="($TMUXENV 2>/dev/null && $TMUXPATH 2>/dev/null >&2)"
+  fi
+
+  export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY;$TMUXCMD"
   export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
-  # Send tmux some path info
-  #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
-  #export PS1="\[\e]2;\u@\H \w\a\e[32;1m\e[32;40m\]\h \w $\[\e[0m\] "
-  #export PS1="\[\e[36;1m\]\u@\[\e[32;1m\]\H> \[\e[0m\]"
 }
 
 _sethistory() {
@@ -229,6 +229,16 @@ timerepeat() {
   for ((i=0; i< $count; i++)); do
     eval $@
   done )
+}
+
+# For the tmux status bar
+git_tmuxstatus() {
+  [ -d .git ] || git rev-parse --git-dir 2> /dev/null || return
+  local BRANCH=$(git branch --no-color 2>/dev/null | sed -e "/^[^*]/d" -e "s/* //")
+  local ALLCHANGED=$(git status --porcelain 2>/dev/null | wc -l)
+  #local CHANGED=$(git status --porcelain 2>/dev/null| egrep "^(M| M)" | wc -l)
+  #local NEW=$(git status --porcelain 2>/dev/null| grep "^??" | wc -l)
+  echo "[${BRANCH}:${ALLCHANGED}]"
 }
 
 # Show what is on a certain port
