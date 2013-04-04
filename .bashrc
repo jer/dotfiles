@@ -10,7 +10,10 @@ OS=$(uname | awk '{print tolower($1)}')
 
 _setpath() {
   paths="/usr/local/bin"
+  paths="${paths} usr/local/sbin"
   paths="${paths} ${HOME}/bin"
+  paths="${paths} /usr/local/heroku/bin"
+  paths="${paths} $HOME/.rvm/bin"
 
   local i
   for i in $paths; do
@@ -116,6 +119,7 @@ _sources() {
   sources="${sources} ${HOME}/.sources/${HOSTNAME}"
   sources="${sources} ${HOME}/.sources/${OS}"
   sources="${sources} ${HOME}/.bash_completion.d"
+  sources="${sources} ${HOME}/.rvm/scripts/rvm"
 
   local i
   for i in $sources; do
