@@ -4,6 +4,7 @@ set nocompatible
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 filetype off
+
 syntax on
 filetype plugin indent on
 
@@ -17,13 +18,13 @@ set shiftwidth=2                    " Number of spaces per (auto) indent
 set softtabstop=2                   " Use spaces as tab for BACKSPACE/DELETE
 set tabstop=2                       " Number of spaces per tab
 set textwidth=70                    " Wrap safely at an 80 char margin
-set expandtab           						" Turn tabs into spaces
+set expandtab                       " Turn tabs into spaces
 
 set title                           " Show title
 set magic                           " Regex searches
 set hlsearch                        " Highlighted searching
 set incsearch                       " Search incrementally
-set smartcase                       " Only ignore case in search for all-lowercase
+set smartcase                       " Only ignore case for all-lowercase
 set ignorecase                      " Ignore case during search
 set spell                           " Spell check on by default
 map <leader>ss :setlocal spell!<cr> " Spell check toggle
@@ -37,7 +38,7 @@ set noerrorbells                    " No bells
 
 set nobackup
 set noswapfile                      " I never ever use swap files
-set autoread                        " Auto-reload files when changed from outside
+set autoread                        " Auto-reload files when changed outside
 filetype plugin indent on           " Filetype-aware plugins and indentation
 set encoding=utf8
 
