@@ -284,8 +284,11 @@ shopt -s checkwinsize
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 #export TERM=ansi
-#export TERM=xterm-color
 export TERM=xterm-256color
+export PIP_REQUIRE_VIRTUALENV=true
 
 _sources
 unset OS
+
+# Mac likes to discard ctl-o
+stty discard undef
