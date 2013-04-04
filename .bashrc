@@ -56,6 +56,7 @@ _setaliases() {
 
   alias ls='ls -G'
   alias ll='ls -hl'
+  alias tree='tree -C'
 
   alias cruft="find $FIND_EGREP -regex '.*swo|.*swp|.*pyc|.*pyo|.*~' -exec rm {} \;"
 
