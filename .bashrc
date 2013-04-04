@@ -156,6 +156,16 @@ _moreless() {
   fi
 }
 
+# Vagrant up plus vagrant ssh
+vssh() {
+  vagrant up $1
+  vagrant ssh $1
+}
+
+tmuxssh() {
+  for i in $@; do tmux split -v "ssh $i"; tmux select-layout tiled; done
+}
+
 # Check if we're online
 connected() { 
   case "$OS" in
