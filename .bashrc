@@ -298,6 +298,17 @@ randomizelines() {
   sort -n | cut -f 2-
 }
 
+memoize() {
+  local CACHETIME=$1
+  [[ "$CACHETIME" =~ ^[0-9]+$ ]] && shift || CACHETIME=1
+  local SHA=$( shasum<<<$@ | cut -f1 -d' ' )
+  local MEMODIR=/tmp/bash_memoized/$USER
+  local MEMOFILE=${MEMODIR}/${SHA}
+
+  [ -d $MEMODIR ] || mkdir $MEMODIR
+  ( [ ! -f $MEMOFILE ] || ( test $(find $MEMOFILE -mmin +${CACHETIME})) ) && $@ | tee ${MEMOFILE}  || cat $MEMOFILE
+}
+
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
