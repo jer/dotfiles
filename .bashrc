@@ -127,7 +127,7 @@ _prompt_2line() {
   local NEWLINE="\n"
   LINE1="${White}\342\224\214(${C1}\u@\h${White})${ERRCODE}(${C1}\@ \d${White})"
   local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
-  export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}"
+  export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}${Color_Off}"
 }
 
 _sethistory() {
