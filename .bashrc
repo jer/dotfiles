@@ -9,14 +9,16 @@ fi
 OS=$(uname | awk '{print tolower($1)}')
 
 _setpath() {
-  paths="/usr/local/bin"
-  paths="${paths} usr/local/sbin"
-  paths="${paths} ${HOME}/bin"
-  paths="${paths} /usr/local/heroku/bin"
-  paths="${paths} $HOME/.rvm/bin"
+  local paths=(
+    /usr/local/bin
+    /usr/local/sbin
+    ${HOME}/bin
+    /usr/local/heroku/bin
+    $HOME/.rvm/bin
+  )
 
   local i
-  for i in $paths; do
+  for i in ${paths[@]}; do
     # Move these paths to the front
     PATH=$(echo $PATH | sed -e "s#$i##g")
     if [ -d $i ]; then
@@ -145,17 +147,18 @@ _sethistory() {
 }
 
 _sources() {
-  local sources=""
-  sources="${sources} ${HOME}/.nvm/nvm.sh"
-  sources="${sources} /etc/bash_completion"
-  sources="${sources} ${HOME}/.sources"
-  sources="${sources} ${HOME}/.sources/${HOSTNAME}"
-  sources="${sources} ${HOME}/.sources/${OS}"
-  sources="${sources} ${HOME}/.bash_completion.d"
-  sources="${sources} ${HOME}/.rvm/scripts/rvm"
+  local sources=(
+      ${HOME}/.nvm/nvm.sh
+      /etc/bash_completion
+      ${HOME}/.sources
+      ${HOME}/.sources/${HOSTNAME}
+      ${HOME}/.sources/${OS}
+      ${HOME}/.bash_completion.d
+      ${HOME}/.rvm/scripts/rvm
+  )
 
   local i
-  for i in $sources; do
+  for i in ${sources[@]}; do
     # Source files
     if [ -f $i ]; then
       source $i
