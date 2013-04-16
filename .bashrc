@@ -350,4 +350,6 @@ _sources
 unset OS
 
 # Mac likes to discard ctl-o
-stty discard undef
+if [[ $OS == Darwin ]]; then
+  stty discard undef
+fi
