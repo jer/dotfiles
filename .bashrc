@@ -113,8 +113,8 @@ _prompt_2line() {
   local White='\[\e[0;37m\]'        # White
 
   # Default PROMPT_COLOR values
-  : ${PROMPT_COLOR:=Blue}
-  : ${PROMPT_COLOR2:=Yellow}
+  : ${PROMPT_COLOR:=Yellow}
+  : ${PROMPT_COLOR2:=Blue}
   local C1=${!PROMPT_COLOR}
   local C2=${!PROMPT_COLOR2}
 
