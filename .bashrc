@@ -287,7 +287,7 @@ timerepeat() {
 git_tmuxstatus() {
   [ -d .git ] || git rev-parse --git-dir 2> /dev/null || return
   local BRANCH=$(git branch --no-color 2>/dev/null | sed -e "/^[^*]/d" -e "s/* //")
-  local ALLCHANGED=$(git status --porcelain 2>/dev/null | wc -l)
+  local ALLCHANGED=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
   #local CHANGED=$(git status --porcelain 2>/dev/null| egrep "^(M| M)" | wc -l)
   #local NEW=$(git status --porcelain 2>/dev/null| grep "^??" | wc -l)
   echo "[${BRANCH}:${ALLCHANGED}]"
