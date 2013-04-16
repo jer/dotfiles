@@ -78,7 +78,7 @@ _setaliases() {
 
   alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
   alias d='dotfiles'
-  alias sourcebashrc='source ~/.bashrc'
+  alias .bashrc='source ~/.bashrc'
 }
 
 _setprompt() {
