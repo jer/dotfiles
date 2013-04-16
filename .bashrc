@@ -96,6 +96,38 @@ _setprompt() {
   export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
 }
 
+_prompt_2line() {
+  # Reset
+  local Color_Off='\[\e[0m\]'       # Text Reset
+
+  # Regular Colors
+  local Black='\[\e[0;30m\]'        # Black
+  local Red='\[\e[0;31m\]'          # Red
+  local Green='\[\e[0;32m\]'        # Green
+  local Yellow='\[\e[0;33m\]'       # Yellow
+  local Blue='\[\e[0;34m\]'         # Blue
+  local Purple='\[\e[0;35m\]'       # Purple
+  local Cyan='\[\e[0;36m\]'         # Cyan
+  local White='\[\e[0;37m\]'        # White
+
+  # Default PROMPT_COLOR values
+  : ${PROMPT_COLOR:=Blue}
+  : ${PROMPT_COLOR2:=Yellow}
+  local C1=${!PROMPT_COLOR}
+  local C2=${!PROMPT_COLOR2}
+
+  # ┌(jer@myhost)─(✗)─(10:18 PM Sun Apr 14)
+  # └─(~/dev/git/myproject)─>
+  local DASH="\342\224\200"
+  local X="\342\234\227"
+  local ERRCODE="\$([[ \$? != 0 ]] && echo \"${DASH}(${Red}${X}${White})\")${DASH}"
+
+  local NEWLINE="\n"
+  LINE1="${White}\342\224\214(${C1}\u@\h${White})${ERRCODE}(${C1}\@ \d${White})"
+  local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
+  export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}"
+}
+
 _sethistory() {
   export HISTFILE=~/.bash_history
   export HISTSIZE=10000
@@ -269,7 +301,8 @@ wiki() { dig +short txt $1.wp.dg.cx; }
 
 _setpath
 _setaliases
-_setprompt
+#_setprompt
+_prompt_2line
 _sethistory
 _moreless
 
