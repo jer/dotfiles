@@ -109,9 +109,12 @@ _setprompt() {
   local Cyan='\[\e[0;36m\]'         # Cyan
   local White='\[\e[0;37m\]'        # White
 
+  # Use for chroots, venvs, or other info that should be stuck in the prompt
+  EXTRAPROMPT=$2
+
   case "$1" in
     simple)
-      export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
+      export PS1="\[\[\e[32;1m\]\h$EXTRAPROMPT \W> \[\e[0m\]"
       ;;
     2line)
       # Default PROMPT_COLOR values
@@ -127,7 +130,7 @@ _setprompt() {
       local ERRCODE="\$([[ \$? != 0 ]] && echo \"${DASH}(${Red}${X}${White})\")${DASH}"
 
       local NEWLINE="\n"
-      LINE1="${White}\342\224\214(${C1}\u@\h${White})${ERRCODE}(${C1}\@ \d${White})"
+      LINE1="${White}\342\224\214(${C1}\u@\h$EXTRAPROMPT${White})${ERRCODE}(${C1}\@ \d${White})"
       local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
       export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}${Color_Off}"
       ;;
