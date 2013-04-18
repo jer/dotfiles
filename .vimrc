@@ -28,6 +28,11 @@ set smartcase                       " Only ignore case for all-lowercase
 set ignorecase                      " Ignore case during search
 set spell                           " Spell check on by default
 map <leader>ss :setlocal spell!<cr> " Spell check toggle
+map <leader>sl :setlocal list!<cr>  " Toggle invisible characters
+set listchars=tab:▸\ ,eol:¬         " Nicer invisi-chars
+
+nnoremap <tab> %                    " Faster than %
+vnoremap <tab> %
 
 set showmatch                       " Show matching parens
 set mat=1                           " How long to show paren match, in tenths/S
