@@ -95,10 +95,7 @@ _setprompt() {
   fi
 
   export PROMPT_COMMAND="$SETWINDOWTITLE;$SAVEHISTORY;$TMUXCMD"
-  export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
-}
 
-_prompt_2line() {
   # Reset
   local Color_Off='\[\e[0m\]'       # Text Reset
 
@@ -112,22 +109,30 @@ _prompt_2line() {
   local Cyan='\[\e[0;36m\]'         # Cyan
   local White='\[\e[0;37m\]'        # White
 
-  # Default PROMPT_COLOR values
-  : ${PROMPT_COLOR:=Yellow}
-  : ${PROMPT_COLOR2:=Blue}
-  local C1=${!PROMPT_COLOR}
-  local C2=${!PROMPT_COLOR2}
+  case "$1" in
+    simple)
+      export PS1="\[\[\e[32;1m\]\h \W> \[\e[0m\]"
+      ;;
+    2line)
+      # Default PROMPT_COLOR values
+      : ${PROMPT_COLOR:=Yellow}
+      : ${PROMPT_COLOR2:=Blue}
+      local C1=${!PROMPT_COLOR}
+      local C2=${!PROMPT_COLOR2}
 
-  # ┌(jer@myhost)─(✗)─(10:18 PM Sun Apr 14)
-  # └─(~/dev/git/myproject)─>
-  local DASH="\342\224\200"
-  local X="\342\234\227"
-  local ERRCODE="\$([[ \$? != 0 ]] && echo \"${DASH}(${Red}${X}${White})\")${DASH}"
+      # ┌(jer@myhost)─(✗)─(10:18 PM Sun Apr 14)
+      # └─(~/dev/git/myproject)─>
+      local DASH="\342\224\200"
+      local X="\342\234\227"
+      local ERRCODE="\$([[ \$? != 0 ]] && echo \"${DASH}(${Red}${X}${White})\")${DASH}"
 
-  local NEWLINE="\n"
-  LINE1="${White}\342\224\214(${C1}\u@\h${White})${ERRCODE}(${C1}\@ \d${White})"
-  local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
-  export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}${Color_Off}"
+      local NEWLINE="\n"
+      LINE1="${White}\342\224\214(${C1}\u@\h${White})${ERRCODE}(${C1}\@ \d${White})"
+      local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
+      export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}${Color_Off}"
+      ;;
+  esac
+
 }
 
 _sethistory() {
@@ -326,8 +331,7 @@ wiki() { dig +short txt $1.wp.dg.cx; }
 
 _setpath
 _setaliases
-#_setprompt
-_prompt_2line
+_setprompt 2line
 _sethistory
 _moreless
 _manpagecolor
