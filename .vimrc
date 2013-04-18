@@ -31,6 +31,13 @@ map <leader>ss :setlocal spell!<cr> " Spell check toggle
 map <leader>sl :setlocal list!<cr>  " Toggle invisible characters
 set listchars=tab:▸\ ,eol:¬         " Nicer invisi-chars
 
+" There may be a better way to set options that don't exist in older vim
+try
+    set colorcolumn=81              " Point out long lines
+    set relativenumber              " Show relative line numbers on the left
+catch /^Vim\%((\a\+)\)\=:E518/
+endtry
+
 nnoremap <tab> %                    " Faster than %
 vnoremap <tab> %
 
@@ -38,7 +45,7 @@ set showmatch                       " Show matching parens
 set mat=1                           " How long to show paren match, in tenths/S
 set ruler                           " Show lines and columns at the bottom
 
-set visualbell                      " No beeping out loud
+set novisualbell                    " No beeping
 set noerrorbells                    " No bells
 
 set nobackup
