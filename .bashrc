@@ -354,9 +354,9 @@ export TERM=xterm-256color
 export PIP_REQUIRE_VIRTUALENV=true
 
 _sources
-unset OS
-
 # Mac likes to discard ctl-o
-if [[ $OS == Darwin ]]; then
+if [[ $OS == darwin ]]; then
   stty discard undef
 fi
+
+unset OS
