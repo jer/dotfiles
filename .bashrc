@@ -15,6 +15,9 @@ _setpath() {
     ${HOME}/bin
     /usr/local/heroku/bin
     $HOME/.rvm/bin
+    /usr/local/CrossPack-AVR/bin
+    $HOME/dev/go/bin
+    /usr/local/packer
   )
 
   local i
