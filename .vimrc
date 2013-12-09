@@ -95,3 +95,5 @@ try
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme evening
 endtry
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
