@@ -325,7 +325,7 @@ memoize() {
   local MEMODIR=/tmp/bash_memoized/$USER
   local MEMOFILE=${MEMODIR}/${SHA}
 
-  [ -d $MEMODIR ] || mkdir $MEMODIR
+  [ -d $MEMODIR ] || mkdir -p $MEMODIR
   ( [ ! -f $MEMOFILE ] || ( test $(find $MEMOFILE -mmin +${CACHETIME})) ) && $@ | tee ${MEMOFILE}  || cat $MEMOFILE
 }
 
