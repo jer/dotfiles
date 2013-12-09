@@ -90,6 +90,17 @@ _setaliases() {
   alias .bashrc='source ~/.bashrc'
 
   alias vimall='vim -p $(find . -type f)'
+
+  alias vp='vagrant provision'
+  alias vdu='vagrant destroy -f; vagrant up'
+  alias be='bundle exec'
+  alias bek='bundle exec kitchen'
+  alias sha256='shasum -a 256'
+
+  local JSONCHECK="require 'json';puts(JSON.pretty_generate JSON.parse(STDIN.read))"
+  alias checkjson="ruby -e \"$JSONCHECK\""
+
+  alias path='echo -e ${PATH//:/\\n}'
 }
 
 _setprompt() {
@@ -344,6 +355,14 @@ fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep
 alias funfacts='wget http://www.randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;";'
 nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2=$4="";1') | column -t ; }
 wiki() { dig +short txt $1.wp.dg.cx; }
+
+clip() {
+  if [[ $THISOS == darwin ]]; then
+    pbcopy $@
+  else
+    xclip -sel clip $@
+  fi
+}
 
 _setpath
 _setaliases
