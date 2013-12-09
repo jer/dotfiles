@@ -6,7 +6,7 @@ if [[ $- != *i* ]] ; then
   return
 fi
 
-OS=$(uname | awk '{print tolower($1)}')
+THISOS=$(uname | awk '{print tolower($1)}')
 
 _setpath() {
   local paths=(
@@ -45,7 +45,7 @@ mem() {
 }
 
 _setaliases() {
-  case "$OS" in
+  case "$THISOS" in
     darwin)
         # Use MacVim's terminal vim for awesomeness support
         hash rvim 2>/dev/null  && alias vim=rvim
@@ -162,7 +162,7 @@ _sources() {
       /etc/bash_completion
       ${HOME}/.sources
       ${HOME}/.sources/${HOSTNAME}
-      ${HOME}/.sources/${OS}
+      ${HOME}/.sources/${THISOS}
       ${HOME}/.bash_completion.d
       ${HOME}/.rvm/scripts/rvm
   )
@@ -223,7 +223,7 @@ tmuxssh() {
 
 # Check if we're online
 connected() { 
-  case "$OS" in
+  case "$THISOS" in
     darwin)
       ping -c1 -w2 google.com > /dev/null 2>&1;
       ;;
@@ -357,8 +357,7 @@ export PIP_REQUIRE_VIRTUALENV=true
 
 _sources
 # Mac likes to discard ctl-o
-if [[ $OS == darwin ]]; then
+if [[ $THISOS == darwin ]]; then
   stty discard undef
 fi
 
-unset OS
