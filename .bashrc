@@ -53,14 +53,18 @@ _setaliases() {
         # Use MacVim's terminal vim for awesomeness support
         hash rvim 2>/dev/null  && alias vim=rvim
         local FIND_EGREP="-E .";
+        local LS_COLORFLAG='-G'
         ;;
     linux)
+        alias ls='ls -G'
         local FIND_EGREP=". -regextype posix-egrep";
+        local LS_COLORFLAG='--color=auto'
         ;;
   esac
 
-  alias ls='ls -G'
+  alias ls="ls $LS_COLORFLAG"
   alias ll='ls -hl'
+  alias l.='ls -d .* --color=auto'
   alias tree='tree -C'
 
   alias cruft="find $FIND_EGREP -regex '.*swo|.*swp|.*pyc|.*pyo|.*~' -exec rm {} \;"
