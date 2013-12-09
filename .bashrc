@@ -117,6 +117,7 @@ _setprompt() {
   local Purple='\[\e[0;35m\]'       # Purple
   local Cyan='\[\e[0;36m\]'         # Cyan
   local White='\[\e[0;37m\]'        # White
+  local NEWLINE="\n"
 
   # Use for chroots, venvs, or other info that should be stuck in the prompt
   EXTRAPROMPT=$2
@@ -138,10 +139,13 @@ _setprompt() {
       local X="\342\234\227"
       local ERRCODE="\$([[ \$? != 0 ]] && echo \"${DASH}(${Red}${X}${White})\")${DASH}"
 
-      local NEWLINE="\n"
       LINE1="${White}\342\224\214(${C1}\u@\h$EXTRAPROMPT${White})${ERRCODE}(${C1}\@ \d${White})"
       local LINE2="\342\224\224\342\224\200(${C2}\w${White})-> "
       export PS1="${NEWLINE}${LINE1}${NEWLINE}${LINE2}${Color_Off}"
+      ;;
+    3line)
+      _setprompt 2line
+      export PS1="$PS1${NEWLINE}${White}\342\224\224\342\224\200>${Color_Off} "
       ;;
   esac
 
