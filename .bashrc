@@ -362,6 +362,8 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export TERM=xterm-256color
 export PIP_REQUIRE_VIRTUALENV=true
 
+export GOPATH=${HOME}/dev/go
+
 _sources
 # Mac likes to discard ctl-o
 if [[ $THISOS == darwin ]]; then
