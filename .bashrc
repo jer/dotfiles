@@ -328,6 +328,18 @@ git_tmuxstatus() {
   echo "[${BRANCH}:${ALLCHANGED}]"
 }
 
+# Clears local merged branches and tracking branches that aren't on the server
+git_prune() {
+  find . -type dir -name .git -exec sh -c "
+    cd {}/..;
+    echo Found repo: $(pwd);
+    git branch --merged |
+      grep -v -P '^(\*| ) master$' |
+      xargs -n 1 git branch -d;
+    git remote prune origin;
+  " \;
+}
+
 randomizelines() {
   awk 'BEGIN {srand()} {print int(rand()*1000000) "\t" $0}' $1 |
   sort -n | cut -f 2-
