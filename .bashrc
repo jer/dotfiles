@@ -54,11 +54,13 @@ _setaliases() {
         hash rvim 2>/dev/null  && alias vim=rvim
         local FIND_EGREP="-E .";
         local LS_COLORFLAG='-G'
+        local PERMSFLAG="-f"
         ;;
     linux)
         alias ls='ls -G'
         local FIND_EGREP=". -regextype posix-egrep";
         local LS_COLORFLAG='--color=auto'
+        local PERMSFLAG="-c"
         ;;
   esac
 
@@ -75,11 +77,7 @@ _setaliases() {
   alias facts="echo -ne '\033[36m'; curl -s randomfunfacts.com | grep '<i>' | sed 's/.*<i>\(.*\)<\/i>.*/\1/'; echo -ne '\033[0m'; tput sgr0"
 
   # show numeric permissions
-  local FORMATFLAG="-c"
-  if ( uname -a | grep Darwin >/dev/null); then
-    FORMATFLAG="-f"
-  fi
-  alias perms="stat $FORMATFLAG '%A %a %n' *"
+  alias perms="stat $PERMSFLAG '%A %a %n' *"
 
   # Add an "alert" alias for long running commands.  Use like so:
   #   sleep 10; alert
@@ -247,10 +245,10 @@ tmuxssh() {
 connected() { 
   case "$THISOS" in
     darwin)
-      ping -c1 -w2 google.com > /dev/null 2>&1;
+      ping -c1 -t2 google.com > /dev/null 2>&1;
       ;;
     linux)
-      ping -c1 -t2 google.com > /dev/null 2>&1;
+      ping -c1 -w2 google.com > /dev/null 2>&1;
       ;;
   esac
 }
