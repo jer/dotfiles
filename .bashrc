@@ -277,10 +277,12 @@ url-info()
 }
 
 # Map over a list of files
-map-find() { find $1 -name $2 -exec ${@:3} {} \; ; }
+map-find() { find $1 -name "$2" -exec ${@:3} {} \; ; }
 
 # Map over a bunch of lines piped in
-map() {
+# e.g. egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}' ~/.ssh/known_hosts |
+#         map-lines host
+map-lines() {
   [ -z $1 ] && exit 1
   local IFS="$(printf '\n\t')"
   local i cmd
