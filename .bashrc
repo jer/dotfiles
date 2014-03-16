@@ -305,7 +305,7 @@ map-lines() {
     *) cmd="$@ \$i" ;;
   esac
   while read i; do
-    eval $cmd
+    eval "${cmd}"
   done
 }
 
