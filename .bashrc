@@ -26,11 +26,9 @@ _setpath() {
     # Move these paths to the front
     PATH=$(echo "$PATH" | sed -e "s#$i##g")
     if [ -d $i ]; then
-      PATH=$i:$PATH
+      PATH=$(echo "$i":"$PATH" | sed -e 's/^\://' -e 's/\:\:/:/g')
     fi
   done
-
-  PATH=`echo $PATH | sed -e 's/^\://' -e 's/\:\:/:/g'`
 
   export PATH
 }
