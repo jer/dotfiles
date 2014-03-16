@@ -22,9 +22,9 @@ _setpath() {
   )
 
   local i
-  for i in ${paths[@]}; do
+  for i in "${paths[@]}"; do
     # Move these paths to the front
-    PATH=$(echo $PATH | sed -e "s#$i##g")
+    PATH=$(echo "$PATH" | sed -e "s#$i##g")
     if [ -d $i ]; then
       PATH=$i:$PATH
     fi
@@ -38,14 +38,14 @@ _setpath() {
 # Function to calculate total memory consumption grouped by process name
 mem() {
   local GREPCMD="cat"
-  if [ ! -z $1 ]; then
+  if [ ! -z "$1" ]; then
     GREPCMD="grep -P $1"
   fi
   ps aux | awk '{print $4"\t"$6"\t"$11}' | 
      sort -k3 | 
      awk '{rss[$3]+=$2; per[$3]+=$1} END {for (i in rss) {print rss[i],i,per[i]"%"}}' | 
      sort -n | 
-     eval $GREPCMD
+     eval "$GREPCMD"
 }
 
 _setaliases() {
@@ -82,12 +82,15 @@ _setaliases() {
 
   # Add an "alert" alias for long running commands.  Use like so:
   #   sleep 10; alert
+  # shellcheck disable=SC2016
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+  # shellcheck disable=SC2016
   alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
   alias d='dotfiles'
   alias .bashrc='source ~/.bashrc'
 
+  # shellcheck disable=SC2016
   alias vimall='vim -p $(find . -type f)'
 
   alias vp='vagrant provision'
@@ -99,16 +102,20 @@ _setaliases() {
   local JSONCHECK="require 'json';puts(JSON.pretty_generate JSON.parse(STDIN.read))"
   alias checkjson="ruby -e \"$JSONCHECK\""
 
+  # shellcheck disable=SC2016
   alias path='echo -e ${PATH//:/\\n}'
 }
 
 _setprompt() {
   local SAVEHISTORY="history -a"
+  # shellcheck disable=SC2016
   local SETWINDOWTITLE='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 
   local TMUXCMD=''
-  if [ -n $TMUX ]; then
+  if [ -n "$TMUX" ]; then
+  # shellcheck disable=SC2016
     local TMUXENV='tmux set-environment -g CWD "$PWD"'
+  # shellcheck disable=SC2016
     local TMUXPATH='tmux set-option default-path $PWD'
     local TMUXCMD="($TMUXENV 2>/dev/null && $TMUXPATH 2>/dev/null >&2)"
   fi
@@ -119,14 +126,23 @@ _setprompt() {
   local Color_Off='\[\e[0m\]'       # Text Reset
 
   # Regular Colors
+  # shellcheck disable=SC2034
   local Black='\[\e[0;30m\]'        # Black
+  # shellcheck disable=SC2034
   local Red='\[\e[0;31m\]'          # Red
+  # shellcheck disable=SC2034
   local Green='\[\e[0;32m\]'        # Green
+  # shellcheck disable=SC2034
   local Yellow='\[\e[0;33m\]'       # Yellow
+  # shellcheck disable=SC2034
   local Blue='\[\e[0;34m\]'         # Blue
+  # shellcheck disable=SC2034
   local Purple='\[\e[0;35m\]'       # Purple
+  # shellcheck disable=SC2034
   local Cyan='\[\e[0;36m\]'         # Cyan
+  # shellcheck disable=SC2034
   local White='\[\e[0;37m\]'        # White
+  # shellcheck disable=SC2034
   local NEWLINE="\n"
 
   # Use for chroots, venvs, or other info that should be stuck in the prompt
@@ -138,8 +154,8 @@ _setprompt() {
       ;;
     2line)
       # Default PROMPT_COLOR values
-      : ${PROMPT_COLOR:=Yellow}
-      : ${PROMPT_COLOR2:=Blue}
+      : "${PROMPT_COLOR:=Yellow}"
+      : "${PROMPT_COLOR2:=Blue}"
       local C1=${!PROMPT_COLOR}
       local C2=${!PROMPT_COLOR2}
 
@@ -189,18 +205,18 @@ _sources() {
   )
 
   local i
-  for i in ${sources[@]}; do
+  for i in "${sources[@]}"; do
     # Source files
-    if [ -f $i ]; then
-      source $i
+    if [ -f "$i" ]; then
+      source "$i"
       continue
     fi
 
     # Source all files in a directory
-    if [ -d $i ]; then
-      for j in $i/*; do
-        if [ -f $j ]; then
-          source $j
+    if [ -d "$i" ]; then
+      for j in "$i"/*; do
+        if [ -f "$j" ]; then
+          source "$j"
         fi
       done
     fi
@@ -234,12 +250,12 @@ _manpagecolor() {
 
 # Vagrant up plus vagrant ssh
 vssh() {
-  vagrant up $1
-  vagrant ssh $1
+  vagrant up "$1"
+  vagrant ssh "$1"
 }
 
 tmuxssh() {
-  for i in $@; do tmux split -v "ssh $i"; tmux select-layout tiled; done
+  for i in "${@}"; do tmux split -v "ssh $i"; tmux select-layout tiled; done
 }
 
 # Check if we're online
@@ -257,34 +273,34 @@ connected() {
 # Fetch a little info about a domain name
 url-info()
 {
-  doms=$@
+  doms="${@}"
   if [ $# -eq 0 ]; then
     echo -e "No domain given\nTry $0 domain.com domain2.org anyotherdomain.net"
   fi
   local i
   for i in $doms; do
-    _ip=$(host $i|grep 'has address'|awk {'print $4'})
+    _ip=$(host "${i}"|grep 'has address'|awk {'print $4'})
     if [ "$_ip" == "" ]; then
       echo -e "\nERROR: $i DNS error or not a valid domain\n"
       continue
     fi
-    ip=`echo ${_ip[*]}|tr " " "|"`
+    ip=$(echo "${_ip[*]}" | tr " " "|")
     echo -e "\nInformation for domain: $i [ $ip ]\nQuerying individual IPs"
     for j in ${_ip[*]}; do
       echo -e "\n$j results:"
-      whois $j |egrep -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
+      whois "${j}" |egrep -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
     done
   done
 }
 
 # Map over a list of files
-map-find() { find $1 -name "$2" -exec ${@:3} {} \; ; }
+map-find() { find "${1}" -name "$2" -exec "${@:3}" {} \; ; }
 
 # Map over a bunch of lines piped in
 # e.g. egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}' ~/.ssh/known_hosts |
 #         map-lines host
 map-lines() {
-  [ -z $1 ] && exit 1
+  [ -z "${1}" ] && exit 1
   local IFS="$(printf '\n\t')"
   local i cmd
   case "$@" in
@@ -298,7 +314,7 @@ map-lines() {
 
 # Filter on a predicate. Return all of the matches
 filter() {
-  [ -z $1 ] && exit 1
+  [ -z "${1}" ] && exit 1
   local IFS="$(printf '\n\t')"
   local i cmd
   case "$@" in
@@ -306,17 +322,18 @@ filter() {
     *) cmd="$@ \$i" ;;
   esac
   while read i; do
-    eval $cmd >/dev/null && echo $i;
+    eval "${cmd}" >/dev/null && echo "${i}";
   done
 }
 
 # Execute command $i times, returning the time
 timerepeat() {
-  time (
-  local count=$1; shift;
-  for ((i=0; i< $count; i++)); do
-    eval $@
-  done )
+  time {
+    local count=$1; shift;
+    for ((i=0; i< count; i++)); do
+      eval "${@}"
+    done
+  }
 }
 
 # For the tmux status bar
@@ -342,38 +359,49 @@ git_prune() {
 }
 
 randomizelines() {
-  awk 'BEGIN {srand()} {print int(rand()*1000000) "\t" $0}' $1 |
+  awk 'BEGIN {srand()} {print int(rand()*1000000) "\t" $0}' "$1" |
   sort -n | cut -f 2-
 }
 
 memoize() {
   local CACHETIME=$1
   [[ "$CACHETIME" =~ ^[0-9]+$ ]] && shift || CACHETIME=1
-  local SHA=$( shasum<<<$@ | cut -f1 -d' ' )
+  local SHA=$( shasum <<< "${@}" | cut -f1 -d' ' )
   local MEMODIR=/tmp/bash_memoized/$USER
   local MEMOFILE=${MEMODIR}/${SHA}
 
-  [ -d $MEMODIR ] || mkdir -p $MEMODIR
-  ( [ ! -f $MEMOFILE ] || ( test $(find $MEMOFILE -mmin +${CACHETIME})) ) && $@ | tee ${MEMOFILE}  || cat $MEMOFILE
+  [ -d "${MEMODIR}" ] || mkdir -p "${MEMODIR}"
+  # shellcheck disable=SC2046
+  if [ ! -f "${MEMOFILE}" ] || test $(find "${MEMOFILE}" -mmin +${CACHETIME}); then
+    "${@}" | tee "${MEMOFILE}"
+  else
+    cat "${MEMOFILE}"
+  fi
 }
 
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
-shebang() { if i=$(which $1); then printf '#!%s\n\n' $i >  $2 && chmod +x $2 && $EDITOR + $2 ; else echo "'which' could not find $1, is it in your \$PATH?"; fi; }
+shebang() {
+  if i=$(which "${1}"); then
+    printf '#!%s\n\n' "${i}" > "${2}" && chmod +x "${2}" && $EDITOR + "${2}"
+  else
+    echo "'which' could not find ${1}, is it in your \$PATH?"
+  fi
+}
 # Get stock quote
 stock() { curl -s "http://download.finance.yahoo.com/d/quotes.csv?s=$1&f=l1c1" ; }
 
 fur() { curl -sL 'http://www.commandlinefu.com/commands/random/plaintext' | grep -v "^# commandlinefu" ; }
 alias funfacts='wget http://www.randomfunfacts.com -O - 2>/dev/null | grep \<strong\> | sed "s;^.*<i>\(.*\)</i>.*$;\1;";'
 nicemount() { (echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2=$4="";1') | column -t ; }
-wiki() { dig +short txt $1.wp.dg.cx; }
+wiki() { dig +short txt "${1}.wp.dg.cx"; }
 
 clip() {
   if [[ $THISOS == darwin ]]; then
-    pbcopy $@
+    pbcopy "${@}"
   else
-    xclip -sel clip $@
+    xclip -sel clip "${@}"
   fi
 }
 
