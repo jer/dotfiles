@@ -18,6 +18,7 @@ _setpath() {
     /usr/local/CrossPack-AVR/bin
     $HOME/dev/go/bin
     /usr/local/packer
+    $HOME/.cabal/bin
   )
 
   local i
