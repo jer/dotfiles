@@ -71,6 +71,7 @@ _setaliases() {
   alias cruft="find $FIND_EGREP -regex '.*swo|.*swp|.*pyc|.*pyo|.*~' -exec rm {} \;"
 
   alias p="ps aux |grep "
+  alias 'ps?'='ps aux | grep '
   alias grep="grep --color=auto"
 
   alias facts="echo -ne '\033[36m'; curl -s randomfunfacts.com | grep '<i>' | sed 's/.*<i>\(.*\)<\/i>.*/\1/'; echo -ne '\033[0m'; tput sgr0"
