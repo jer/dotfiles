@@ -12,6 +12,7 @@ _setpath() {
   local paths=(
     /usr/local/bin
     /usr/local/sbin
+    /usr/local/go/bin
     ${HOME}/bin
     /usr/local/heroku/bin
     $HOME/.rvm/bin
