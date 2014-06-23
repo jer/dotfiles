@@ -247,6 +247,10 @@ _manpagecolor() {
   export LESS_TERMCAP_us=$'\E[01;32m'
 }
 
+unknow_host() {
+  [ -n "$1" ] && sed -i'.bak' ${1}d ~/.ssh/known_hosts
+}
+
 # Vagrant up plus vagrant ssh
 vssh() {
   vagrant up "$1"
