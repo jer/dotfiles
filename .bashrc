@@ -382,6 +382,11 @@ memoize() {
   fi
 }
 
+sslmap() {
+  local PORT=${2:-443}
+  nmap --script +ssl-cert,+ssl-enum-ciphers -p $PORT $1
+}
+
 # Show what is on a certain port
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
