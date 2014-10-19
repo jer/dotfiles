@@ -413,6 +413,12 @@ clip() {
   fi
 }
 
+genpasswd() {
+  local l=${1:-20}
+  LC_CTYPE=C tr -dc ' "-~' < /dev/urandom |
+     head -c ${l}
+}
+
 _setpath
 _setaliases
 _setprompt 2line
