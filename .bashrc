@@ -391,6 +391,10 @@ sslmap() {
 port() { lsof -i :"$1" ; }
 # Create an executable file with the specified shebang line
 shebang() {
+  if [ -f "${2}" ]; then
+    echo "File ${2} already exists!"
+    return 1
+  fi
   if i=$(which "${1}"); then
     printf '#!%s\n\n' "${i}" > "${2}" && chmod +x "${2}" && $EDITOR + "${2}"
   else
