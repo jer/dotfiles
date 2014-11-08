@@ -423,6 +423,10 @@ genpasswd() {
      head -c ${l}
 }
 
+myip() {
+  curl http://wtfismyip.com/text
+}
+
 _setpath
 _setaliases
 _setprompt 2line
