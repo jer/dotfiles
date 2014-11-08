@@ -450,6 +450,8 @@ export PIP_REQUIRE_VIRTUALENV=true
 
 export GOPATH=${HOME}/dev/go
 
+export DOCKER_HOST=tcp://localhost:2375
+
 _sources
 # Mac likes to discard ctl-o
 if [[ $THISOS == darwin ]]; then
