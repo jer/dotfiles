@@ -98,3 +98,9 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
+
+set clipboard=unnamed
+set mouse=a
+if exists('$TMUX')
+  set ttymouse=xterm2
+endif
