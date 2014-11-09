@@ -104,3 +104,12 @@ set mouse=a
 if exists('$TMUX')
   set ttymouse=xterm2
 endif
+
+function! s:setf(filetype) abort
+  if &filetype !=# a:filetype
+    let &filetype = a:filetype
+  endif
+endfunction
+
+" Spice
+au BufNewFile,BufRead *.[Cc][Ii][Rr]      call s:setf('spice')
