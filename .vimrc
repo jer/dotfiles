@@ -113,3 +113,18 @@ endfunction
 
 " Spice
 au BufNewFile,BufRead *.[Cc][Ii][Rr]      call s:setf('spice')
+
+" Pry config
+au BufNewFile,BufRead .pryrc      call s:setf('ruby')
+" Bundler
+au BufNewFile,BufRead Gemfile     call s:setf('ruby')
+
+" Guard
+au BufNewFile,BufRead Guardfile,.Guardfile  call s:setf('ruby')
+
+" Chef
+au BufNewFile,BufRead Cheffile      call s:setf('ruby')
+au BufNewFile,BufRead Berksfile     call s:setf('ruby')
+
+" Vagrant
+au BufNewFile,BufRead [vV]agrantfile    call s:setf('ruby')
