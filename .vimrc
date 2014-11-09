@@ -29,7 +29,8 @@ set ignorecase                      " Ignore case during search
 set spell                           " Spell check on by default
 map <leader>ss :setlocal spell!<cr> " Spell check toggle
 map <leader>sl :setlocal list!<cr>  " Toggle invisible characters
-set listchars=tab:▸\ ,eol:¬         " Nicer invisi-chars
+:setlocal list
+set listchars=tab:▸\                " Nicer invisi-chars
 
 " There may be a better way to set options that don't exist in older vim
 try
