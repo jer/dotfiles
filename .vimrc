@@ -63,11 +63,6 @@ if has("autocmd")
 endif
 set viminfo^=%
 
-" Set up :W, :Q, etc
-cmap W w            
-cmap Q q
-cmap Tabe tabe
-
 set pastetoggle=<F2>
 :map <F5> :!runcode %<CR>
 :map <F6> :!php %<CR>
