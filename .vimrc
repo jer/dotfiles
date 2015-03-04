@@ -122,3 +122,5 @@ au BufNewFile,BufRead Berksfile     call s:setf('ruby')
 
 " Vagrant
 au BufNewFile,BufRead [vV]agrantfile    call s:setf('ruby')
+
+au BufNewFile,BufRead *.go :set nolist
