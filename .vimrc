@@ -35,7 +35,6 @@ set listchars=tab:▸\                " Nicer invisi-chars
 " There may be a better way to set options that don't exist in older vim
 try
     set colorcolumn=81              " Point out long lines
-    set relativenumber              " Show relative line numbers on the left
 catch /^Vim\%((\a\+)\)\=:E518/
 endtry
 
